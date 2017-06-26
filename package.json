@@ -4,7 +4,9 @@
   "description": "you know what it is",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "NODE_PATH=$NODE_PATH:./shared node --harmony .",
+    "dev": "npm run start & webpack-dev-server --progress --color",
+    "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js"
   },
   "repository": {
     "type": "git",
@@ -15,5 +17,10 @@
   "bugs": {
     "url": "https://github.com/Badsauce/swollar-vortex/issues"
   },
-  "homepage": "https://github.com/Badsauce/swollar-vortex#readme"
+  "homepage": "https://github.com/Badsauce/swollar-vortex#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.25.0",
+    "babel-preset-env": "^1.5.2"
+  }
 }
