@@ -1,8 +1,10 @@
 import React     from 'react';
 import { Route } from 'react-router';
 import App from 'components';
+import HomePage from 'components/HomePage'
 
 export default (
-  <Route name="app" component={App} path="/">
-  </Route>
+  <App>
+    <Route path="/" component={HomePage} />
+  </ App>
 );
