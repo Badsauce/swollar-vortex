@@ -1,12 +1,15 @@
-import express                   from 'express';
-import React                     from 'react';
+import express                   from 'express'
+import React                     from 'react'
 import { renderToString }        from 'react-dom/server'
-import { StaticRouter }          from 'react-router';
-import routes from 'routes';
+import { StaticRouter }          from 'react-router'
+import routes from 'routes'
+import apiRouter from './server/apiRouter'
 
-const app = express();
+const app = express()
 
 app.use('/static', express.static('./dist'));
+
+app.use('/api', apiRouter);
 
 app.get('*', (req, res) => {
     const context = {};

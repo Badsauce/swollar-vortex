@@ -30,6 +30,7 @@
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
