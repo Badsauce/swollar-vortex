@@ -4,7 +4,7 @@
   "description": "you know what it is",
   "main": "index.js",
   "scripts": {
-    "start": "NODE_PATH=$NODE_PATH:./shared node --harmony .",
+    "start": "NODE_PATH=$NODE_PATH:./shared node --require 'dotenv/config' --harmony .",
     "dev": "webpack-dev-server --progress --color",
     "build": "NODE_ENV=production webpack --progress --color -p --config webpack.prod.config.js"
   },
@@ -33,6 +33,7 @@
     "axios": "^0.16.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
