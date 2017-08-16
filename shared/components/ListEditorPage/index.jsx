@@ -19,6 +19,16 @@ export default class ListEditorPage extends React.Component {
     this.setState({items: newItems})
   }
 
+  updateOnWhoSelection = (id, selection) => {
+    const { items } = this.state
+
+    const itemIndex = items.findIndex(item => item.id === id)
+    const newItems = [...items]
+    newItems[itemIndex] = {...items[itemIndex], onWho: selection}
+
+    this.setState({items: newItems})
+  }
+
   componentDidMount() {
     getKinkList()
       .then(items => this.setState({ items }))
@@ -32,7 +42,13 @@ export default class ListEditorPage extends React.Component {
       <div>
         <h1>List Editor</h1>
         <p>{`for ${listId} and partner: ${partnerId}`}</p>
-        {!!items.length && <ListEditor items={items} updateItemSelection={this.updateItemSelection}/>}
+        {!!items.length && (
+          <ListEditor
+            items={items}
+            updateItemSelection={this.updateItemSelection}
+            updateOnWhoSelection={this.updateOnWhoSelection}
+          />
+        )}
         {!items.length && <p>Loading...</p>}
       </div>
     );
