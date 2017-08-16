@@ -1,6 +1,10 @@
 const database = {
   couples: {},
   lists: {},
+  kinkList: [
+    { id: 1, name: 'Dick Touching', selected: 'no' },
+    { id: 2, name: 'Helicopter Dick', selected: 'yes' },
+  ]
 }
 
 const listTemplate = {
@@ -32,4 +36,8 @@ export const retrieveCouple = uniqueCode => {
 
 export const createList = email => {
   database.lists[email] = {...listTemplate}
+}
+
+export const getKinkList = () => {
+  return database.kinkList
 }

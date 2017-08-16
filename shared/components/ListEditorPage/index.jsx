@@ -2,14 +2,11 @@ import EmailInput from 'components/EmailInput'
 import React from 'react'
 import ListEditor from 'components/ListEditorPage/ListEditor'
 
-import { submitPartnerEmails } from 'api'
+import { getKinkList } from 'api'
 
 export default class ListEditorPage extends React.Component {
   state={
-    items: [
-      { id: 1, name: 'Dick Touching', selected: 'no' },
-      { id: 2, name: 'Helicopter Dick', selected: 'yes' },
-    ]
+    items: [],
   }
 
   updateItemSelection = (id, selection) => {
@@ -22,6 +19,11 @@ export default class ListEditorPage extends React.Component {
     this.setState({items: newItems})
   }
 
+  componentDidMount() {
+    getKinkList()
+      .then(items => this.setState({ items }))
+  }
+
   render() {
     const {listId, partnerId} = this.props.match.params
     const { items } = this.state
@@ -30,7 +32,8 @@ export default class ListEditorPage extends React.Component {
       <div>
         <h1>List Editor</h1>
         <p>{`for ${listId} and partner: ${partnerId}`}</p>
-        <ListEditor items={items} updateItemSelection={this.updateItemSelection}/>
+        {!!items.length && <ListEditor items={items} updateItemSelection={this.updateItemSelection}/>}
+        {!items.length && <p>Loading...</p>}
       </div>
     );
   }

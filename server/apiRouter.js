@@ -1,6 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
-import { enrollCouple } from './businessLogic'
+import * as businessLogic from './businessLogic'
 
 const apiRouter = express.Router()
 
@@ -12,9 +12,15 @@ apiRouter.post('/submitPartnerEmails', (req, res) => {
 
   const {yourEmail, theirEmail} = req.body
 
-  enrollCouple(yourEmail, theirEmail)
+  businessLogic.enrollCouple(yourEmail, theirEmail)
 
   res.end('it work')
+})
+
+apiRouter.get('/kinkList', (req, res) => {
+  const kinkList = businessLogic.getKinkList()
+  console.log('get kink list', kinkList)
+  res.json(kinkList)
 })
 
 export default apiRouter
