@@ -23,4 +23,12 @@ apiRouter.get('/kinkList', (req, res) => {
   res.json(kinkList)
 })
 
+apiRouter.post('/kinkList', (req, res) => {
+  const {partnerId, list, coupleId} = req.body
+
+  businessLogic.saveKinkList(partnerId, list, coupleId)
+
+  res.json('list recieved')
+})
+
 export default apiRouter

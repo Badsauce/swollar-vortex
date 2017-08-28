@@ -2,7 +2,7 @@ import EmailInput from 'components/EmailInput'
 import React from 'react'
 import ListEditor from 'components/ListEditorPage/ListEditor'
 
-import { getKinkList } from 'api'
+import { getKinkList, submitKinkList } from 'api'
 
 export default class ListEditorPage extends React.Component {
   state={
@@ -41,7 +41,9 @@ export default class ListEditorPage extends React.Component {
     return (
       <div>
         <h1>List Editor</h1>
-        <p>{`for ${listId} and partner: ${partnerId}`}</p>
+        <p>{`coupleId: ${listId}`}</p>
+        <p>{`partner: ${partnerId}`}</p>
+        <button onClick={() => submitKinkList(partnerId, items, listId)}>Submit</button>
         {!!items.length && (
           <ListEditor
             items={items}

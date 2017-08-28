@@ -25,3 +25,7 @@ export const sendWelcomeEmail = (email) => {
     }
   })
 }
+
+export const sendMatchedList = (partnerId, otherPartnerId, matchedList) => {
+  console.log('mailing matches')
+}

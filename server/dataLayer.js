@@ -1,6 +1,10 @@
 const database = {
-  couples: {},
-  lists: {},
+  couples: {
+    domingo: ['sean','craig']
+  },
+  lists: {
+    craig: [],
+  },
   kinkList: [
     { id: 1, name: 'Anal Beads', selected: '', onWho: '' },
     { id: 2, name: 'Sexy Photoshoot', selected: '', onWho: '' },
@@ -11,7 +15,7 @@ const database = {
     { id: 7, name: 'Cum/Squirt on body', selected: '', onWho: '' },
     { id: 8, name: 'Dildo', selected: '', onWho: '' },
     { id: 9, name: 'Strip Tease', selected: '', onWho: '' },
-    { id: 10, name: 'Dress p as furries', selected: '', onWho: '' },
+    { id: 10, name: 'Dress up as furries', selected: '', onWho: '' },
     { id: 11, name: 'Electro-play', selected: '', onWho: '' },
     { id: 12, name: 'Film partner masturbating', selected: '', onWho: '' },
     { id: 13, name: 'Foot sex', selected: '', onWho: '' },
@@ -47,15 +51,23 @@ export const debugDatabase = () => {
 }
 
 export const addCouple = (uniqueCode, email1, email2) => {
-  database.couples[uniqueCode] = [ email1, email2 ]
+  database.couples[uniqueCode] = {[email1]: false, [email2]: false}
 }
 
 export const retrieveCouple = uniqueCode => {
-  return couples[uniqueCode]
+  return database.couples[uniqueCode]
 }
 
 export const createList = email => {
   database.lists[email] = {...listTemplate}
+}
+
+export const saveKinkList = (email, list) => {
+  database.lists[email] = {...list}
+}
+
+export const findList = email => {
+  return database.lists[email]
 }
 
 export const getKinkList = () => {

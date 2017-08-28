@@ -7,3 +7,7 @@ export const submitPartnerEmails = (yourEmail, theirEmail) => {
 export const getKinkList = () => {
   return axios.get('/api/kinkList/').then(response => response.data)
 }
+
+export const submitKinkList = (partnerId, list, coupleId) => {
+  axios.post('/api/kinkList/',{ partnerId, list, coupleId})
+}
