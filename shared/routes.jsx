@@ -7,6 +7,7 @@ import ListEditorPage from 'components/ListEditorPage'
 export default (
   <App>
     <Route exact path="/" component={HomePage} />
-    <Route path="/editList/:listId/:partnerId" component={ListEditorPage} />
+    <Route path="/editList/:coupleId/:partnerId" component={ListEditorPage} />
+    <Route path="/matchedList/:coupleId" component={() => <div>Computed List</div>} />
   </ App>
 );

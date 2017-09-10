@@ -18,7 +18,7 @@ const ListItem = ({ onSelectionChange, onWhoChange, item }) => (
       >
       No</button>
     </div>
-    <div>
+    {/*<div>
       <button
         style={{ background: ((item.onWho === 'onMe') ? 'blue' : null) }}
         onClick={() => onWhoChange(item.id, 'onMe')}
@@ -32,7 +32,7 @@ const ListItem = ({ onSelectionChange, onWhoChange, item }) => (
         onClick={() => onWhoChange(item.id, 'both')}
       >
       Both</button>
-    </div>
+    </div>*/}
   </div>
 )
 

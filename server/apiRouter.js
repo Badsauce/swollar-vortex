@@ -31,7 +31,7 @@ apiRouter.get('/kinkList', (req, res) => {
 apiRouter.post('/kinkList', (req, res) => {
   const {partnerId, list, coupleId} = req.body
 
-  businessLogic.saveKinkList(partnerId, list, coupleId)
+  // businessLogic.saveKinkList(partnerId, list, coupleId)
 
   res.json('list recieved')
 })

@@ -1,12 +1,15 @@
 import EmailInput from 'components/EmailInput'
 import React from 'react'
 import ListEditor from 'components/ListEditorPage/ListEditor'
+import { Redirect } from 'react-router-dom'
 
 import { getKinkList, submitKinkList } from 'api'
 
 export default class ListEditorPage extends React.Component {
   state={
     items: [],
+    error: '',
+    isSubmitted: false,
   }
 
   updateItemSelection = (id, selection) => {
@@ -34,16 +37,36 @@ export default class ListEditorPage extends React.Component {
       .then(items => this.setState({ items }))
   }
 
+  handleSubmit = (partnerId, items, coupleId) => {
+    this.setState({ error: '' })
+
+    const unansweredItems = items.filter(item => item.selected === '')
+
+    if (unansweredItems.length) {
+      return this.setState({ error: 'there are still unanswered questions' })
+    }
+
+    submitKinkList(partnerId, items, coupleId)
+      .then(this.setState({isSubmitted: true}))
+  }
+
   render() {
-    const {listId, partnerId} = this.props.match.params
-    const { items } = this.state
+    const {coupleId, partnerId} = this.props.match.params
+    const { items, error, isSubmitted } = this.state
+
+    if (isSubmitted) {
+      return <Redirect to={`/matchedList/${coupleId}`} push />
+    }
 
     return (
       <div>
         <h1>List Editor</h1>
-        <p>{`coupleId: ${listId}`}</p>
+        <p>{`coupleId: ${coupleId}`}</p>
         <p>{`partner: ${partnerId}`}</p>
-        <button onClick={() => submitKinkList(partnerId, items, listId)}>Submit</button>
+        <div style={{paddingBottom: '8px'}}>
+          <button onClick={() => this.handleSubmit(partnerId, items, coupleId)}>Submit</button>
+          {error && <p>{error}</p>}
+        </div>
         {!!items.length && (
           <ListEditor
             items={items}
