@@ -1,13 +1,16 @@
 import axios from 'axios'
 
 export const submitPartnerEmails = (yourEmail, theirEmail) => {
-  axios.post('/api/submitPartnerEmails/',{ yourEmail, theirEmail })
+  return axios.post('/api/submitPartnerEmails/',{ yourEmail, theirEmail })
+    .then(response => response.data)
 }
 
 export const getKinkList = () => {
-  return axios.get('/api/kinkList/').then(response => response.data)
+  return axios.get('/api/kinkList/')
+    .then(response => response.data)
 }
 
 export const submitKinkList = (partnerId, list, coupleId) => {
-  axios.post('/api/kinkList/',{ partnerId, list, coupleId})
+  return axios.post('/api/kinkList/',{ partnerId, list, coupleId})
+    .then(response => response.data)
 }

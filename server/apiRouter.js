@@ -12,9 +12,14 @@ apiRouter.post('/submitPartnerEmails', (req, res) => {
 
   const {yourEmail, theirEmail} = req.body
 
-  businessLogic.enrollCouple(yourEmail, theirEmail)
+  // businessLogic.enrollCouple(yourEmail, theirEmail)
 
-  res.end('it work')
+  const response = {
+    coupleId: `${yourEmail.substring(0, 3)}${theirEmail.substring(0, 3)}`,
+    partnerId: yourEmail.substring(0, 3),
+  }
+
+  res.json(response)
 })
 
 apiRouter.get('/kinkList', (req, res) => {
