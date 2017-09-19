@@ -36,4 +36,18 @@ apiRouter.post('/kinkList', (req, res) => {
   res.json('list recieved')
 })
 
+apiRouter.get('/matchedList/:coupleId', (req, res) => {
+  const response = { list: [
+    {
+      name: 'implement the businessLogic layer for this endpoint(sexily)',
+      selected: 'yes',
+    },
+    {
+      name: 'butt stuff',
+      selected: 'maybe',
+    }
+  ]}
+  res.json(response)
+})
+
 export default apiRouter

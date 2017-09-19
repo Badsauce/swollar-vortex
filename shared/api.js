@@ -14,3 +14,8 @@ export const submitKinkList = (partnerId, list, coupleId) => {
   return axios.post('/api/kinkList/',{ partnerId, list, coupleId})
     .then(response => response.data)
 }
+
+export const getMatchedList = (coupleId) => {
+  return axios.get(`/api/matchedList/${coupleId}`)
+    .then(response => response.data)
+}
