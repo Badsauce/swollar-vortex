@@ -8,15 +8,15 @@ apiRouter.use(bodyParser.urlencoded({ extended: true }));
 apiRouter.use(bodyParser.json());
 
 apiRouter.post('/submitPartnerEmails', (req, res) => {
-  console.log(req.body)
+  console.log('POST', '/submitPartnerEmails', req.body)
 
   const {yourEmail, theirEmail} = req.body
 
-  // businessLogic.enrollCouple(yourEmail, theirEmail)
+  const coupleInfo = businessLogic.enrollCouple(yourEmail, theirEmail)
 
   const response = {
-    coupleId: `${yourEmail.substring(0, 3)}${theirEmail.substring(0, 3)}`,
-    partnerId: yourEmail.substring(0, 3),
+    coupleId: coupleInfo.coupleId,
+    partnerId: coupleInfo.partnerId1,
   }
 
   res.json(response)
@@ -31,22 +31,14 @@ apiRouter.get('/kinkList', (req, res) => {
 apiRouter.post('/kinkList', (req, res) => {
   const {partnerId, list, coupleId} = req.body
 
-  // businessLogic.saveKinkList(partnerId, list, coupleId)
+  businessLogic.saveKinkList(partnerId, list, coupleId)
 
   res.json('list recieved')
 })
 
 apiRouter.get('/matchedList/:coupleId', (req, res) => {
-  const response = { list: [
-    {
-      name: 'implement the businessLogic layer for this endpoint(sexily)',
-      selected: 'yes',
-    },
-    {
-      name: 'butt stuff',
-      selected: 'maybe',
-    }
-  ]}
+  const computedList = businessLogic.computeMatches(req.params.coupleId)
+  const response = { list: computedList }
   res.json(response)
 })
 
