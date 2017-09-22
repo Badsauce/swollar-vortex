@@ -43,8 +43,8 @@ export const saveKinkList = (partnerId, list, coupleId) => {
   const coupleData = dataLayer.retrieveCouple(coupleId)
   console.log({coupleData})
   if(coupleData.partner1.submittedList && coupleData.partner2.submittedList) {
-    console.log('time to compute lists')
-    // const lists = dataLayer.getListsForCouple(coupleId)
+    const lists = dataLayer.getListsForCouple(coupleId)
+    console.log({lists})
     // const matchedList = computeMatches(lists)
     // sendMatchedList(partnerId, otherPartnerId, matchedList)
   } else {
