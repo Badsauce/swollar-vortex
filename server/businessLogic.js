@@ -6,10 +6,7 @@ export const enrollCouple = (email1, email2) => {
   const partnerId2 = email2.substring(0, 3)
   const coupleId = `${partnerId1}${partnerId2}`
 
-  // dataLayer.addCouple(uniqueCode, email1, email2)
-
-  // dataLayer.createList(email1)
-  // dataLayer.createList(email2)
+  dataLayer.addCouple(coupleId, email1, email2)
 
   // sendWelcomeEmail()
 
@@ -20,9 +17,7 @@ export const enrollCouple = (email1, email2) => {
   }
 }
 
-export const getKinkList = () => {
-  return dataLayer.getKinkList()
-}
+export const getKinkList = () => dataLayer.getKinkList()
 
 export const computeMatches = (coupleId) => {
   // const lists = database.retrieveCouple(coupleId)
@@ -40,17 +35,19 @@ export const computeMatches = (coupleId) => {
 }
 
 export const saveKinkList = (partnerId, list, coupleId) => {
-  // dataLayer.saveKinkList(partnerId, list, coupleId)
-  //
-  // const coupleData = dataLayer.retrieveCouple(coupleId)
-  // const otherPartnerId = coupleData.find(id => id !== partnerId)
-  //
-  // const partnerList = dataLayer.findList(otherPartnerId)
-  //
-  // if( partnerList ){
-  //   const matchedList = computeMatches(list, partnerList)
-  //   sendMatchedList(partnerId, otherPartnerId, matchedList)
-  // }
+  console.log('before',dataLayer.database.couples[coupleId])
+  dataLayer.saveKinkList(partnerId, list)
+  dataLayer.markSubmitted(partnerId, coupleId)
+  console.log('after',dataLayer.database.couples[coupleId])
 
-  console.log({partnerId, coupleId})
+  const coupleData = dataLayer.retrieveCouple(coupleId)
+  console.log({coupleData})
+  if(coupleData.partner1.submittedList && coupleData.partner2.submittedList) {
+    console.log('time to compute lists')
+    // const lists = dataLayer.getListsForCouple(coupleId)
+    // const matchedList = computeMatches(lists)
+    // sendMatchedList(partnerId, otherPartnerId, matchedList)
+  } else {
+    console.log('waiting for partner to submit')
+  }
 }

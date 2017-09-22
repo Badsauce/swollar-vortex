@@ -1,6 +1,9 @@
-const database = {
+export const database = {
   couples: {
-    domingo: ['sean','craig']
+    bootit: {
+      partner1: { id: 'boo', email: 'booty', submittedList: false },
+      partner2: { id: 'tit', email: 'titty', submittedList: false },
+    }
   },
   lists: {
     craig: [
@@ -20,16 +23,34 @@ export const debugDatabase = () => {
   console.log(database)
 }
 
-export const addCouple = (uniqueCode, email1, email2) => {
-  database.couples[uniqueCode] = {[email1]: false, [email2]: false}
+const createPartner = email => ({ email, submittedList: false, id: email.substring(0, 3) })
+const modifyCouple = (coupleId, newValue) => database.couples[coupleId] = newValue
+
+export const addCouple = (coupleId, email1, email2) => {
+  database.couples[coupleId] = {
+    partner1: createPartner(email1),
+    partner2: createPartner(email2),
+  }
 }
 
-export const retrieveCouple = uniqueCode => {
-  return database.couples[uniqueCode]
+export const retrieveCouple = uniqueCode => database.couples[uniqueCode]
+
+
+export const markSubmitted = (partnerId, coupleId) => {
+  const couple = retrieveCouple(coupleId)
+  const newCouple = {...couple}
+
+  if(couple.partner1.id === partnerId) {
+    newCouple.partner1.submittedList = true
+  } else {
+    newCouple.partner2.submittedList = true
+  }
+
+  modifyCouple(coupleId, newCouple)
 }
 
-export const saveKinkList = (email, list) => {
-  database.lists[email] = {...list}
+export const saveKinkList = (id, list) => {
+  database.lists[id] = list
 }
 
 export const findList = email => {
