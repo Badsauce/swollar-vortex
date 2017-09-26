@@ -20,34 +20,34 @@ export const enrollCouple = (email1, email2) => {
 export const getKinkList = () => dataLayer.getKinkList()
 
 export const computeMatches = (coupleId) => {
-  // const lists = database.retrieveCouple(coupleId)
-  // object.keys(lists[0]).map(domatching)
-  return [
-    {
-      name: 'implement the database layer for this endpoint(sexily)',
-      selected: 'yes',
-    },
-    {
-      name: 'butt stuff',
-      selected: 'maybe',
-    }
-  ]
-}
-
-export const saveKinkList = (partnerId, list, coupleId) => {
-  console.log('before',dataLayer.database.couples[coupleId])
-  dataLayer.saveKinkList(partnerId, list)
-  dataLayer.markSubmitted(partnerId, coupleId)
-  console.log('after',dataLayer.database.couples[coupleId])
-
   const coupleData = dataLayer.retrieveCouple(coupleId)
   console.log({coupleData})
   if(coupleData.partner1.submittedList && coupleData.partner2.submittedList) {
-    const lists = dataLayer.getListsForCouple(coupleId)
-    console.log({lists})
-    // const matchedList = computeMatches(lists)
+    const {list1, list2} = dataLayer.getListsForCouple(coupleId)
+
+    return list1.map((listItem1, index) => {
+      const listItem2 = list2[index]
+      let matchedSelected = 'yes'
+
+      if(listItem1.selected === 'no' || listItem2.selected === 'no'){
+        return null
+      } else if(listItem1.selected === 'maybe' || listItem2.selected === 'maybe'){
+        matchedSelected = 'maybe'
+      }
+      return {name: listItem1.name, selected: matchedSelected}
+    }).filter(listItem => listItem !== null)
     // sendMatchedList(partnerId, otherPartnerId, matchedList)
   } else {
-    console.log('waiting for partner to submit')
+    return [
+      {
+        name: 'waiting for partner to submit',
+        selected: 'yes',
+      },
+    ]
   }
+}
+
+export const saveKinkList = (partnerId, list, coupleId) => {
+  dataLayer.saveKinkList(partnerId, list)
+  dataLayer.markSubmitted(partnerId, coupleId)
 }
