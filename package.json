@@ -30,6 +30,7 @@
     "webpack-dev-server": "^2.5.0"
   },
   "dependencies": {
+    "@sendgrid/mail": "^6.1.4",
     "axios": "^0.16.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "body-parser": "^1.17.2",

@@ -8,7 +8,8 @@ export const enrollCouple = (email1, email2) => {
 
   dataLayer.addCouple(coupleId, email1, email2)
 
-  // sendWelcomeEmail()
+  sendWelcomeEmail(email1, coupleId)
+  sendWelcomeEmail(email2, coupleId)
 
   return {
     coupleId,

@@ -1,29 +1,17 @@
-import nodemailer from 'nodemailer'
+import sgMail from '@sendgrid/mail'
+import { generate as generateWelcomeEmail } from './emailTemplates/welcomeEmail'
 
-const transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-        user: process.env.EMAIL_ACCOUNT,
-        pass: process.env.EMAIL_PASSWORD,
-    }
-})
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-export const sendWelcomeEmail = (email) => {
-  const mailOptions = {
-    from: 'kinkmailer@gmail.com', // sender address
-    to: 'nickrutowski@gmail.com', // list of receivers
-    subject: 'Email Example', // Subject line
-    text: 'kinky timez' //, // plaintext body
-    // html: '<b>Hello world ✔</b>' // You can choose to send an HTML body instead
-  }
+export const sendWelcomeEmail = (email, coupleId) => {
+  const msg = {
+    to: 'nickrutowski@gmail.com',
+    from: 'kinkmailer@gmail.com',
+    subject: 'Welcome to KinkAF',
+    html: generateWelcomeEmail(email.substring(0, 3), coupleId),
+  };
 
-  transporter.sendMail(mailOptions, (error, info) => {
-    if(error){
-        console.log(error)
-    }else{
-        console.log('Message sent: ' + info.response)
-    }
-  })
+  sgMail.send(msg);
 }
 
 export const sendMatchedList = (partnerId, otherPartnerId, matchedList) => {
