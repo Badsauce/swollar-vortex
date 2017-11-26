@@ -8,7 +8,7 @@ export const generate = (partnerId, coupleId) => {
     <Email title="Welcome to KinkAF">
       <Item align="center">
         <Span fontSize={20}>
-          Fill out your list here 
+          Fill out your list here butts
           <A href={url}>{url}</A>.
         </Span>
       </Item>
