@@ -10,8 +10,8 @@ export default class EmailInput extends React.Component {
     const { label, value } = this.props
 
     return (
-      <div>
-        <label>{label}</label>
+      <div style={{ paddingBottom: '16px'}}>
+        <label style={{ display: 'block'}}>{label}</label>
         <input onChange={this.onChange} type="email" value={value} />
       </div>
     );

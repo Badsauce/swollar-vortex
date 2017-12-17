@@ -20,11 +20,25 @@ export const enrollCouple = (email1, email2) => {
 
 export const getKinkList = () => dataLayer.getKinkList()
 
+export const computeMatchedList = ({list1, list2}) => {
+  return list1.map((listItem1, index) => {
+    const listItem2 = list2[index]
+    let matchedSelected = 'yes'
+
+    if(listItem1.selected === 'no' || listItem2.selected === 'no'){
+      return null
+    } else if(listItem1.selected === 'maybe' || listItem2.selected === 'maybe'){
+      matchedSelected = 'maybe'
+    }
+    return {name: listItem1.name, selected: matchedSelected}
+  }).filter(listItem => listItem !== null)
+}
+
 export const computeMatches = (coupleId) => {
   const coupleData = dataLayer.retrieveCouple(coupleId)
   console.log({coupleData})
   if(coupleData.partner1.submittedList && coupleData.partner2.submittedList) {
-    const {list1, list2} = dataLayer.getListsForCouple(coupleId)
+    const {list1, list2} = computeMatchedList(dataLayer.getListsForCouple(coupleId))
 
     return list1.map((listItem1, index) => {
       const listItem2 = list2[index]

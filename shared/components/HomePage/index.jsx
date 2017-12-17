@@ -33,8 +33,8 @@ export default class AppView extends React.Component {
     return (
       <div>
         <h1>Match your kinks</h1>
-        <EmailInput onChange={this.updateYourEmail} value={yourEmail} label="Yours" />
-        <EmailInput onChange={this.updateThierEmail} value={theirEmail} label="Theirs" />
+        <EmailInput onChange={this.updateYourEmail} value={yourEmail} label="Your Email" />
+        <EmailInput onChange={this.updateThierEmail} value={theirEmail} label="Their Email" />
         <button onClick={() => this.handleSubmitEmails(yourEmail, theirEmail)} >Submit</button>
       </div>
     );
